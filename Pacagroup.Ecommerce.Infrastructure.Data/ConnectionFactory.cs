@@ -25,7 +25,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Data
                 /*if (sqlConnection is null) 
                     return null;*/
 
-                sqlConnection.ConnectionString = _configuration.GetConnectionString("");
+                sqlConnection.ConnectionString = _configuration.GetConnectionString("NorthwindConnection");
 
                 sqlConnection.Open();
 
