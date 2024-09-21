@@ -14,12 +14,14 @@ namespace Pacagroup.Ecommerce.Application.Main
     public class CustomerApplication : ICustomerApplication
     {
         private readonly IMapper _mapper;
+        private readonly IAppLogger<CustomerApplication> _logger;
         private readonly ICustomerDomain _customerDomain;
 
-        public CustomerApplication(ICustomerDomain customerDomain, IMapper mapper) 
+        public CustomerApplication(ICustomerDomain customerDomain, IMapper mapper, IAppLogger<CustomerApplication> logger) 
         { 
             _customerDomain = customerDomain;
             _mapper = mapper;
+            _logger = logger;
         }
 
         #region sync methods
@@ -40,7 +42,8 @@ namespace Pacagroup.Ecommerce.Application.Main
                 }
             }
             catch (Exception e)
-            {                
+            {
+                _logger.LogError(e.Message);
                 response.Message = e.Message;             
             }
 
@@ -65,6 +68,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 response.Message = e.Message;
             }
 
@@ -87,6 +91,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 response.Message = e.Message;
             }
 
@@ -111,6 +116,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 response.Message = e.Message;
             }
 
@@ -135,6 +141,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 response.Message = e.Message;
             }
 
@@ -161,6 +168,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 response.Message = e.Message;
             }
 
@@ -185,6 +193,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 response.Message = e.Message;
             }
 
@@ -207,6 +216,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 response.Message = e.Message;
             }
 
@@ -231,6 +241,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 response.Message = e.Message;
             }
 
@@ -255,6 +266,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 response.Message = e.Message;
             }
 

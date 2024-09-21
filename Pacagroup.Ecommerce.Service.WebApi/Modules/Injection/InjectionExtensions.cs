@@ -6,6 +6,7 @@ using Pacagroup.Ecommerce.Application.Interface;
 using Pacagroup.Ecommerce.Application.Main;
 using Pacagroup.Ecommerce.Domain.Interface;
 using Pacagroup.Ecommerce.Domain.Core;
+using Pacagroup.Ecommerce.Transversal.Logging;
 
 namespace Pacagroup.Ecommerce.Service.WebApi.Modules.Injection
 {
@@ -18,6 +19,7 @@ namespace Pacagroup.Ecommerce.Service.WebApi.Modules.Injection
             services.AddSingleton<ICustomerApplication, CustomerApplication>();
             services.AddSingleton<ICustomerDomain, CustomerDomain>();
             services.AddSingleton<ICustomerRepository, CustomerRepository>();
+            services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 
             return services;
         }
