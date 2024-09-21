@@ -16,9 +16,9 @@ namespace Pacagroup.Ecommerce.Service.WebApi.Modules.Injection
         {
             services.AddSingleton<IConfiguration>(configuration);
             services.AddSingleton<IConnectionFactory, ConnectionFactory>();
-            services.AddSingleton<ICustomerApplication, CustomerApplication>();
-            services.AddSingleton<ICustomerDomain, CustomerDomain>();
-            services.AddSingleton<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICustomerApplication, CustomerApplication>();
+            services.AddScoped<ICustomerDomain, CustomerDomain>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 
             return services;
