@@ -2,6 +2,7 @@ using Pacagroup.Ecommerce.Service.WebApi.Modules.Feature;
 using Pacagroup.Ecommerce.Service.WebApi.Modules.Injection;
 using Pacagroup.Ecommerce.Service.WebApi.Modules.Mapper;
 using Pacagroup.Ecommerce.Service.WebApi.Modules.Swagger;
+using Pacagroup.Ecommerce.Service.WebApi.Modules.Validator;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMapper();
 builder.Services.AddInjections(builder.Configuration);
 builder.Services.AddFeatures(builder.Configuration);
+builder.Services.AddValidator();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
