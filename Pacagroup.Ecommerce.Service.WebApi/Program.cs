@@ -13,6 +13,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGenCustom();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("policyApiEcommerce",
+        policy =>
+        {
+            policy.WithOrigins(builder.Configuration.GetSection("Config:OriginCors").Value)
+            .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +33,8 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Ecommerce V1");
     });
 }
+
+app.UseCors("policyApiEcommerce");
 
 app.UseAuthorization();
 
