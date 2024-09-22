@@ -1,4 +1,6 @@
-﻿namespace Pacagroup.Ecommerce.Service.WebApi.Modules.Feature
+﻿using Pacagroup.Ecommerce.Service.WebApi.Helpers;
+
+namespace Pacagroup.Ecommerce.Service.WebApi.Modules.Feature
 {
     public static class FeatureExtensions
     {
@@ -13,6 +15,9 @@
                         .AllowAnyMethod();
                     });
             });
+
+            IConfigurationSection appSettings = configuration.GetSection("Config");
+            services.Configure<AppSettings>(appSettings);
 
             return services;
         }

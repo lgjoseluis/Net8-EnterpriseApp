@@ -1,3 +1,4 @@
+using Pacagroup.Ecommerce.Service.WebApi.Modules.Authentication;
 using Pacagroup.Ecommerce.Service.WebApi.Modules.Feature;
 using Pacagroup.Ecommerce.Service.WebApi.Modules.Injection;
 using Pacagroup.Ecommerce.Service.WebApi.Modules.Mapper;
@@ -11,6 +12,7 @@ builder.Services.AddMapper();
 builder.Services.AddInjections(builder.Configuration);
 builder.Services.AddFeatures(builder.Configuration);
 builder.Services.AddValidator();
+builder.Services.AddAuthenticationJwt(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -29,6 +31,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("policyApiEcommerce");
+app.UseAuthentication();
 
 app.UseAuthorization();
 
