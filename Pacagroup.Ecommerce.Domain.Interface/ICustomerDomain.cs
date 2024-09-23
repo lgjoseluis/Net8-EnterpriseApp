@@ -11,27 +11,27 @@ namespace Pacagroup.Ecommerce.Domain.Interface
     public interface ICustomerDomain
     {
         #region sync methods
-        bool Insert(Customer customer);
+        bool Insert(Customers customer);
 
-        bool Update(Customer customer);
+        bool Update(Customers customer);
 
         bool Delete(string customerId);
 
-        Customer Get(string customerId);
+        Customers Get(string customerId);
 
-        IEnumerable<Customer> GetAll();
+        IEnumerable<Customers> GetAll();
         #endregion
 
         #region async methods
-        Task<bool> InsertAsync(Customer customer);
+        Task<bool> InsertAsync(Customers customer);
 
-        Task<bool> UpdateAsync(Customer customer);
+        Task<bool> UpdateAsync(Customers customer);
 
         Task<bool> DeleteAsync(string customerId);
 
-        Task<Customer> GetAsync(string customerId);
+        Task<Customers> GetAsync(string customerId);
 
-        Task<IEnumerable<Customer>> GetAllAsync();
+        Task<IEnumerable<Customers>> GetAllAsync();
         #endregion
     }
 }

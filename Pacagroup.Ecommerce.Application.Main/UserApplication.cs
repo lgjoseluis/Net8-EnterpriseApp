@@ -27,7 +27,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                User user = _userDomain.Authenticate(userLoginDto.UserName, userLoginDto.Password);
+                Users user = _userDomain.Authenticate(userLoginDto.UserName, userLoginDto.Password);
 
                 response.Data = _mapper.Map<UserDto>(user);
 

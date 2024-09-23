@@ -2,8 +2,8 @@
 
 namespace Pacagroup.Ecommerce.Infrastructure.Interface;
 
-public interface IUserRepository
+public interface IUserRepository : IGenericRepository<Users>
 {
-    User Authenticate(string userName, string password);
+    Users Authenticate(string userName, string password);
 }
 

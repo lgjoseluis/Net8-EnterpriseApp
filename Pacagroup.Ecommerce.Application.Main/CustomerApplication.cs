@@ -28,7 +28,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                Customer customer = _mapper.Map<Customer>(customerDto);
+                Customers customer = _mapper.Map<Customers>(customerDto);
 
                 response.Data = _customerDomain.Insert(customer);
 
@@ -53,7 +53,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                Customer customer = _mapper.Map<Customer>(customerDto);
+                Customers customer = _mapper.Map<Customers>(customerDto);
 
                 response.Data = _customerDomain.Update(customer);
 
@@ -101,7 +101,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                Customer customer =  _customerDomain.Get(customerId);
+                Customers customer =  _customerDomain.Get(customerId);
 
                 response.Data = _mapper.Map<CustomerDto>(customer);
 
@@ -126,7 +126,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                IEnumerable<Customer> customers = _customerDomain.GetAll();
+                IEnumerable<Customers> customers = _customerDomain.GetAll();
 
                 response.Data = _mapper.Map<IEnumerable<CustomerDto>>(customers);
 
@@ -153,7 +153,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                Customer customer = _mapper.Map<Customer>(customerDto);
+                Customers customer = _mapper.Map<Customers>(customerDto);
 
                 response.Data = await _customerDomain.InsertAsync(customer);
 
@@ -178,7 +178,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                Customer customer = _mapper.Map<Customer>(customerDto);
+                Customers customer = _mapper.Map<Customers>(customerDto);
 
                 response.Data = await _customerDomain.UpdateAsync(customer);
 
@@ -226,7 +226,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                Customer customer = await _customerDomain.GetAsync(customerId);
+                Customers customer = await _customerDomain.GetAsync(customerId);
 
                 response.Data = _mapper.Map<CustomerDto>(customer);
 
@@ -251,7 +251,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                IEnumerable<Customer> customers = await _customerDomain.GetAllAsync();
+                IEnumerable<Customers> customers = await _customerDomain.GetAllAsync();
 
                 response.Data = _mapper.Map<IEnumerable<CustomerDto>>(customers);
 

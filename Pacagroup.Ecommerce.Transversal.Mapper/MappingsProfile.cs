@@ -9,7 +9,7 @@ namespace Pacagroup.Ecommerce.Transversal.Mapper
     {
         public MappingsProfile()
         {
-            CreateMap<Customer, CustomerDto>() //<Source, Destination>
+            CreateMap<Customers, CustomerDto>() //<Source, Destination>
                 .ReverseMap() 
                 .ForMember(destination => destination.CustomerId, source => source.MapFrom(src => src.CustomerId))
                 .ForMember(destination => destination.CompanyName, source => source.MapFrom(src => src.CompanyName))
@@ -23,7 +23,7 @@ namespace Pacagroup.Ecommerce.Transversal.Mapper
                 .ForMember(destination => destination.Phone, source => source.MapFrom(src => src.Phone))
                 .ForMember(destination => destination.Fax, source => source.MapFrom(src => src.Fax));
 
-            CreateMap<User, UserDto>()
+            CreateMap<Users, UserDto>()
                 .ReverseMap();
         }
     }

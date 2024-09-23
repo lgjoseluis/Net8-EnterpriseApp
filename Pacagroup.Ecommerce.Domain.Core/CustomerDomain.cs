@@ -17,12 +17,12 @@ namespace Pacagroup.Ecommerce.Domain.Core
         }
 
         #region sync methods
-        public bool Insert(Customer customer)
+        public bool Insert(Customers customer)
         {
             return this._customerRepository.Insert(customer);
         }
 
-        public bool Update(Customer customer)
+        public bool Update(Customers customer)
         {
             return this._customerRepository.Update(customer);
         }
@@ -32,12 +32,12 @@ namespace Pacagroup.Ecommerce.Domain.Core
             return this._customerRepository.Delete(customerId);
         }        
 
-        public Customer Get(string customerId)
+        public Customers Get(string customerId)
         {
             return this._customerRepository.Get(customerId);
         }
 
-        public IEnumerable<Customer> GetAll()
+        public IEnumerable<Customers> GetAll()
         {
             return this._customerRepository.GetAll();
         }
@@ -45,12 +45,12 @@ namespace Pacagroup.Ecommerce.Domain.Core
 
 
         #region async methods
-        public async Task<bool> InsertAsync(Customer customer)
+        public async Task<bool> InsertAsync(Customers customer)
         {
             return await this._customerRepository.InsertAsync(customer);
         }
 
-        public async Task<bool> UpdateAsync(Customer customer)
+        public async Task<bool> UpdateAsync(Customers customer)
         {
             return await this._customerRepository.UpdateAsync(customer);
         }
@@ -60,12 +60,12 @@ namespace Pacagroup.Ecommerce.Domain.Core
             return await this._customerRepository.DeleteAsync(customerId);
         }
 
-        public async Task<Customer> GetAsync(string customerId)
+        public async Task<Customers> GetAsync(string customerId)
         {
             return await this._customerRepository.GetAsync(customerId);
         }
 
-        public async Task<IEnumerable<Customer>> GetAllAsync()
+        public async Task<IEnumerable<Customers>> GetAllAsync()
         {
             return await this._customerRepository.GetAllAsync();
         }

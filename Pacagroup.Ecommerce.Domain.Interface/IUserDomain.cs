@@ -4,6 +4,6 @@ namespace Pacagroup.Ecommerce.Domain.Interface;
 
 public interface IUserDomain
 {
-    User Authenticate(string username, string password);
+    Users Authenticate(string username, string password);
 }
 

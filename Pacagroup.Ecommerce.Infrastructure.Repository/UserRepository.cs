@@ -3,21 +3,21 @@
 using Dapper;
 
 using Pacagroup.Ecommerce.Domain.Entity;
+using Pacagroup.Ecommerce.Infrastructure.Data;
 using Pacagroup.Ecommerce.Infrastructure.Interface;
-using Pacagroup.Ecommerce.Transversal.Common;
 
 namespace Pacagroup.Ecommerce.Infrastructure.Repository;
 
-public class UserRepository : IUserRepository
+public class UserRepository : GenericRepository<Users>, IUserRepository
 {
-    private readonly IConnectionFactory _connectionFactory;
+    private readonly DapperContext _context;
 
-    public UserRepository(IConnectionFactory connectionFactory)
+    public UserRepository(DapperContext context):base(context)
     {
-        _connectionFactory = connectionFactory;
+        _context = context;
     }
 
-    public User Authenticate(string userName, string password)
+    public Users Authenticate(string userName, string password)
     {
         string command = "UsersGetByUserAndPassword";
 
@@ -26,9 +26,9 @@ public class UserRepository : IUserRepository
         parameters.Add("UserName", userName);
         parameters.Add("Password", password);
 
-        using (IDbConnection connection = _connectionFactory.GetConnection)
+        using (IDbConnection connection = _context.CreateConnection())
         {
-            User user = connection.QuerySingle<User>(command, parameters, commandType: CommandType.StoredProcedure);
+            Users user = connection.QuerySingle<Users>(command, parameters, commandType: CommandType.StoredProcedure);
 
             return user;
         }

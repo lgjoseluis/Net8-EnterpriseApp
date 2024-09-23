@@ -13,7 +13,7 @@ public class UserDomain : IUserDomain
         _userRepository = userRepository;
     }
 
-    public User Authenticate(string username, string password)
+    public Users Authenticate(string username, string password)
     {
         return _userRepository.Authenticate(username, password);
     }
