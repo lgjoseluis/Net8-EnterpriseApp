@@ -11,7 +11,7 @@ namespace Pacagroup.Ecommerce.Domain.Interface
 
         Task<bool> DeleteAsync(string customerId);
 
-        Task<Customers> GetAsync(string customerId);
+        Task<Customers?> GetAsync(string customerId);
 
         Task<IEnumerable<Customers>> GetAllAsync();
         #endregion

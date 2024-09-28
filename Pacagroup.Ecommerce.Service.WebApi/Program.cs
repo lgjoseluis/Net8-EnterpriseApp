@@ -4,6 +4,7 @@ using Pacagroup.Ecommerce.Service.WebApi.Modules.Injection;
 using Pacagroup.Ecommerce.Service.WebApi.Modules.Mapper;
 using Pacagroup.Ecommerce.Service.WebApi.Modules.Swagger;
 using Pacagroup.Ecommerce.Service.WebApi.Modules.Validator;
+using WatchDog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +14,14 @@ builder.Services.AddInjections(builder.Configuration);
 builder.Services.AddFeatures(builder.Configuration);
 builder.Services.AddValidator();
 builder.Services.AddAuthenticationJwt(builder.Configuration);
+builder.Services.AddWatchDog(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGenCustom();
+
+builder.Logging.AddWatchDogLogger();
 
 var app = builder.Build();
 
@@ -30,11 +34,18 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseWatchDogExceptionLogger();
+
 app.UseCors("policyApiEcommerce");
 app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseWatchDog(conf => {
+    conf.WatchPageUsername = builder.Configuration.GetSection("WatchDog:WatchPageUsername").Value;
+    conf.WatchPagePassword = builder.Configuration.GetSection("WatchDog:WatchPagePassword").Value;
+});
 
 app.Run();

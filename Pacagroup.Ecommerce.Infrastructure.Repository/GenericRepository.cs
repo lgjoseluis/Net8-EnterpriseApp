@@ -106,7 +106,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
         {
             string tableName = GetTableName();
             string? keyColumn = GetKeyColumnName();            
-            string query = $"DELETE FROM {tableName} WHERE {keyColumn} = @Id";
+            string query = $"DELETE FROM* {tableName} WHERE {keyColumn} = @Id";
 
             return query;
         }

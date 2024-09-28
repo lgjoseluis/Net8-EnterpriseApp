@@ -9,7 +9,7 @@ namespace Pacagroup.Ecommerce.Domain.Core
 {
     public class CustomerDomain : ICustomerDomain
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;        
 
         public CustomerDomain(IUnitOfWork unitOfWork)
         {
@@ -26,7 +26,7 @@ namespace Pacagroup.Ecommerce.Domain.Core
         {
             await _unitOfWork.BeginTransactionAsync();
 
-            var result = await this._unitOfWork.Customers.UpdateAsync(customer);
+            bool result = await this._unitOfWork.Customers.UpdateAsync(customer);
 
             await _unitOfWork.CommitAsync();
 
@@ -38,9 +38,11 @@ namespace Pacagroup.Ecommerce.Domain.Core
             return await this._unitOfWork.Customers.DeleteAsync(customerId);
         }
 
-        public async Task<Customers> GetAsync(string customerId)
+        public async Task<Customers?> GetAsync(string customerId)
         {
-            return await this._unitOfWork.Customers.GetAsync(customerId);
+            Customers? result = await this._unitOfWork.Customers.GetAsync(customerId);
+
+            return result;
         }
 
         public async Task<IEnumerable<Customers>> GetAllAsync()

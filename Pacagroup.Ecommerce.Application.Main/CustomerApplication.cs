@@ -61,6 +61,7 @@ namespace Pacagroup.Ecommerce.Application.Main
                 {
                     response.IsSuccess = true;
                     response.Message = "Actualización exitosa";
+                    _logger.LogInformation($"Actualización exitosa. [{nameof(Customers)}]<<Id: {customer.CustomerId}>>");
                 }
             }
             catch (Exception e)
@@ -101,7 +102,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                Customers customer = await _customerDomain.GetAsync(customerId);
+                Customers? customer = await _customerDomain.GetAsync(customerId);
 
                 response.Data = _mapper.Map<CustomerDto>(customer);
 
@@ -109,6 +110,7 @@ namespace Pacagroup.Ecommerce.Application.Main
                 {
                     response.IsSuccess = true;
                     response.Message = "Consulta exitosa";
+                    _logger.LogInformation($"Consulta exitosa. [{nameof(Customers)}]<<Id: {customerId}>>");
                 }
             }
             catch (Exception e)
