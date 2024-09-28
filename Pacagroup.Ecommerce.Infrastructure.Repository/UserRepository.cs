@@ -10,11 +10,9 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository;
 
 public class UserRepository : GenericRepository<Users>, IUserRepository
 {
-    private readonly DapperContext _context;
-
-    public UserRepository(DapperContext context):base(context)
+    public UserRepository(IDbConnection dbConnection):base(dbConnection)
     {
-        _context = context;
+        _dbConnection = dbConnection;
     }
 
     public Users Authenticate(string userName, string password)
@@ -26,9 +24,9 @@ public class UserRepository : GenericRepository<Users>, IUserRepository
         parameters.Add("UserName", userName);
         parameters.Add("Password", password);
 
-        using (IDbConnection connection = _context.CreateConnection())
+        using (_dbConnection)
         {
-            Users user = connection.QuerySingle<Users>(command, parameters, commandType: CommandType.StoredProcedure);
+            Users user = _dbConnection.QuerySingle<Users>(command, parameters, commandType: CommandType.StoredProcedure);
 
             return user;
         }

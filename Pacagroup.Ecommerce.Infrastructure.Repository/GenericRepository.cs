@@ -1,95 +1,19 @@
 ﻿using Pacagroup.Ecommerce.Infrastructure.Interface;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
-using System.Data.Common;
-using Pacagroup.Ecommerce.Infrastructure.Data;
 using System.Data;
 using Dapper;
-using System.Collections;
 using static Dapper.SqlMapper;
-using Pacagroup.Ecommerce.Domain.Entity;
 
 namespace Pacagroup.Ecommerce.Infrastructure.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T> : RepositoryBase, IGenericRepository<T> where T : class
     {
-        private readonly DapperContext _dapperContext;
-
-        public GenericRepository(DapperContext dapperContext)
+        public GenericRepository(IDbConnection dbConnection):base(dbConnection)
         {
-            _dapperContext = dapperContext;
         }
-
-        #region sync methods
-        public bool Insert(T entity)
-        {
-            int rowsEffected = 0;
-            string queryInsert = CreateQueryInsert();
-
-            using (IDbConnection connection = _dapperContext.CreateConnection())
-            {
-                rowsEffected = connection.Execute(queryInsert, entity);
-
-                return rowsEffected > 0;
-            }
-        }
-
-        public bool Update(T entity)
-        {
-            int rowsEffected = 0;
-            string queryUpdate = CreateQueryUpdate();
-
-            using (IDbConnection connection = _dapperContext.CreateConnection())
-            {
-                rowsEffected = connection.Execute(queryUpdate, entity);
-
-                return rowsEffected > 0;
-            }
-        }
-
-        public bool Delete(string id)
-        {
-            int rowsEffected = 0;
-            string queryDelete = CreateQueryDeleteById();
-
-            using (IDbConnection connection = _dapperContext.CreateConnection())
-            {
-                rowsEffected =  connection.Execute(queryDelete, new { Id = id });
-
-                return rowsEffected > 0;
-            }
-        }
-
-        public T Get(string id)
-        {
-            string querySelect = CreateQuerySelectById();
-
-            using (IDbConnection connection = _dapperContext.CreateConnection())
-            {
-                T? entity = connection.QueryFirstOrDefault<T>(querySelect, new { Id = id });
-
-                return entity;
-            }
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            string querySelect = CreateQuerySelectAll();
-
-            using (IDbConnection connection = _dapperContext.CreateConnection())
-            {
-                IEnumerable<T> entities = connection.Query<T>(querySelect);
-
-                return entities;
-            }
-        }
-        #endregion
 
         #region async methods
         public async Task<bool> InsertAsync(T entity)
@@ -97,12 +21,9 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
             int rowsEffected = 0;
             string queryInsert = CreateQueryInsert();
 
-            using (IDbConnection connection = _dapperContext.CreateConnection())
-            {
-                rowsEffected = await connection.ExecuteAsync(queryInsert, entity);
+            rowsEffected = await _dbConnection.ExecuteAsync(queryInsert, entity, _dbTransaction);
 
-                return rowsEffected > 0;
-            }
+            return rowsEffected > 0;
         }
 
         public async Task<bool> UpdateAsync(T entity)
@@ -110,12 +31,9 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
             int rowsEffected = 0;
             string queryUpdate = CreateQueryUpdate();
 
-            using (IDbConnection connection = _dapperContext.CreateConnection())
-            {
-                rowsEffected = await connection.ExecuteAsync(queryUpdate, entity);
+            rowsEffected = await _dbConnection.ExecuteAsync(queryUpdate, entity, _dbTransaction);
 
-                return rowsEffected > 0;
-            }
+            return rowsEffected > 0;
         }
 
         public async Task<bool> DeleteAsync(string id)
@@ -123,36 +41,27 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
             int rowsEffected = 0;
             string queryDelete = CreateQueryDeleteById();
 
-            using (IDbConnection connection = _dapperContext.CreateConnection())
-            {
-                rowsEffected = await connection.ExecuteAsync(queryDelete, new { Id = id });
+            rowsEffected = await _dbConnection.ExecuteAsync(queryDelete, new { Id = id }, _dbTransaction);
 
-                return rowsEffected > 0;
-            }
+            return rowsEffected > 0;
         }
 
-        public async Task<T> GetAsync(string id)
+        public async Task<T?> GetAsync(string id)
         {
             string querySelect = CreateQuerySelectById();
 
-            using (IDbConnection connection = _dapperContext.CreateConnection())
-            {
-                T? entity = await connection.QueryFirstOrDefaultAsync<T>(querySelect, new { Id = id });
+            T? entity = await _dbConnection.QueryFirstOrDefaultAsync<T>(querySelect, new { Id = id });
 
-                return entity;
-            }
+            return entity;
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
             string querySelect = CreateQuerySelectAll();
 
-            using (IDbConnection connection = _dapperContext.CreateConnection())
-            {
-                IEnumerable<T> entities = await connection.QueryAsync<T>(querySelect);
+            IEnumerable<T> entities = await _dbConnection.QueryAsync<T>(querySelect);
 
-                return entities;
-            }
+            return entities;
         }
         #endregion
 
