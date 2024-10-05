@@ -36,6 +36,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Ecommerce V1");
     });
+
+    app.UseReDoc(options => {
+        options.DocumentTitle = "Packagroup Technology Services API Market";
+        options.SpecUrl = "/swagger/v1/swagger.json";
+    });
 }
 
 app.UseWatchDogExceptionLogger();

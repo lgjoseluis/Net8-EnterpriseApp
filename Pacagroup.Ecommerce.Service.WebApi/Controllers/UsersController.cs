@@ -18,6 +18,7 @@ namespace Pacagroup.Ecommerce.Service.WebApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
+    [SwaggerTag("Get information users")]
     public class UsersController : ControllerBase
     {
         private readonly IUserApplication _userApplication;
@@ -32,10 +33,12 @@ namespace Pacagroup.Ecommerce.Service.WebApi.Controllers
         [HttpPost]
         [SwaggerOperation(
             Summary = "Authenticate a user",
-            Description = "Authenticate a user"
+            Description = "This endpoint will return authenticated user"
+            //OperationId = "Authenticate",
+            //Tags = new string[] { "Authenticate" }
 
         )]
-        [SwaggerResponse(StatusCodes.Status200OK, "OK. User authenticated", typeof(bool))]
+        [SwaggerResponse(StatusCodes.Status200OK, "OK. User authenticated", typeof(Response<UserDto>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Bad Request. Validate the data sent in the request", typeof(ProblemDetails))]
         [SwaggerResponse(StatusCodes.Status404NotFound, "Not Found. User does not exist", typeof(ProblemDetails))]
         public IActionResult Authenticate([FromBody] UserLoginDto userDto)

@@ -12,6 +12,7 @@ namespace Pacagroup.Ecommerce.Service.WebApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
+    [SwaggerTag("Información de clientes (Customers)")]
     public class CustomersController : ControllerBase
     {
         private readonly ICustomerApplication _customerApplication;
