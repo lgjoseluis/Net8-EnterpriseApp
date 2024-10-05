@@ -3,14 +3,13 @@
 using Dapper;
 
 using Pacagroup.Ecommerce.Domain.Entity;
-using Pacagroup.Ecommerce.Infrastructure.Data;
-using Pacagroup.Ecommerce.Infrastructure.Interface;
+using Pacagroup.Ecommerce.Application.Interface.Persistence;
 
-namespace Pacagroup.Ecommerce.Infrastructure.Repository;
+namespace Pacagroup.Ecommerce.Persistence.Repositories;
 
 public class UserRepository : GenericRepository<Users>, IUserRepository
 {
-    public UserRepository(IDbConnection dbConnection):base(dbConnection)
+    public UserRepository(IDbConnection dbConnection) : base(dbConnection)
     {
         _dbConnection = dbConnection;
     }

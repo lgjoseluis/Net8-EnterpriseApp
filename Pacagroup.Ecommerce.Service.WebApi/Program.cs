@@ -1,3 +1,5 @@
+using Pacagroup.Ecommerce.Persistence;
+using Pacagroup.Ecommerce.Application.UseCases;
 using Pacagroup.Ecommerce.Service.WebApi.Modules.Authentication;
 using Pacagroup.Ecommerce.Service.WebApi.Modules.Feature;
 using Pacagroup.Ecommerce.Service.WebApi.Modules.Injection;
@@ -11,6 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddMapper();
 builder.Services.AddInjections(builder.Configuration);
+builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddApplicationServices();
 builder.Services.AddFeatures(builder.Configuration);
 builder.Services.AddValidator();
 builder.Services.AddAuthenticationJwt(builder.Configuration);

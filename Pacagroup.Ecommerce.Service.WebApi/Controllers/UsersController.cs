@@ -1,15 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+
+using Swashbuckle.AspNetCore.Annotations;
+
 using Pacagroup.Ecommerce.Application.DTO;
-using Pacagroup.Ecommerce.Application.Interface;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
 using Pacagroup.Ecommerce.Service.WebApi.Helpers;
 using Pacagroup.Ecommerce.Transversal.Common;
-using Swashbuckle.AspNetCore.Annotations;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace Pacagroup.Ecommerce.Service.WebApi.Controllers
 {

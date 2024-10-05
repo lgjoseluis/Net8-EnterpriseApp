@@ -1,24 +1,24 @@
 ﻿using AutoMapper;
+
 using Pacagroup.Ecommerce.Application.DTO;
-using Pacagroup.Ecommerce.Application.Interface;
-using Pacagroup.Ecommerce.Domain.Entity;
-using Pacagroup.Ecommerce.Domain.Interface;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
+using Pacagroup.Ecommerce.Application.Interface.Persistence;
 using Pacagroup.Ecommerce.Transversal.Common;
+using Pacagroup.Ecommerce.Domain.Entity;
 
-
-namespace Pacagroup.Ecommerce.Application.Main
+namespace Pacagroup.Ecommerce.Application.UseCases.UsersApp
 {
     public class UserApplication : IUserApplication
     {
         private readonly IMapper _mapper;
-        private readonly IAppLogger<CustomerApplication> _logger;
-        private readonly IUserDomain _userDomain;
+        private readonly IAppLogger<UserApplication> _logger;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserApplication(IMapper mapper, IAppLogger<CustomerApplication> logger, IUserDomain userDomain)
+        public UserApplication(IMapper mapper, IAppLogger<UserApplication> logger, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _logger = logger;
-            _userDomain = userDomain;
+            _unitOfWork = unitOfWork;
         }
 
         public Response<UserDto> Authenticate(UserLoginDto userLoginDto)
@@ -27,7 +27,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                Users user = _userDomain.Authenticate(userLoginDto.UserName, userLoginDto.Password);
+                Users user = _unitOfWork.Users.Authenticate(userLoginDto.UserName, userLoginDto.Password);
 
                 response.Data = _mapper.Map<UserDto>(user);
 
@@ -38,7 +38,7 @@ namespace Pacagroup.Ecommerce.Application.Main
                 }
             }
             catch (InvalidOperationException)
-            { 
+            {
                 response.IsSuccess = true;
                 response.Message = "Usuario no existe";
             }

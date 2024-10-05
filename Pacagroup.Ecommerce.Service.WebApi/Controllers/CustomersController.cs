@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Swashbuckle.AspNetCore.Annotations;
 
 using Pacagroup.Ecommerce.Application.DTO;
-using Pacagroup.Ecommerce.Application.Interface;
 using Pacagroup.Ecommerce.Transversal.Common;
-using Microsoft.AspNetCore.Authorization;
-
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
 
 namespace Pacagroup.Ecommerce.Service.WebApi.Controllers
 {

@@ -1,17 +1,20 @@
-﻿using Pacagroup.Ecommerce.Infrastructure.Interface;
+﻿
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Text;
 using System.Data;
+
 using Dapper;
 using static Dapper.SqlMapper;
 
-namespace Pacagroup.Ecommerce.Infrastructure.Repository
+using Pacagroup.Ecommerce.Application.Interface.Persistence;
+
+namespace Pacagroup.Ecommerce.Persistence.Repositories
 {
     public class GenericRepository<T> : RepositoryBase, IGenericRepository<T> where T : class
     {
-        public GenericRepository(IDbConnection dbConnection):base(dbConnection)
+        public GenericRepository(IDbConnection dbConnection) : base(dbConnection)
         {
         }
 
@@ -105,7 +108,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
         private string CreateQueryDeleteById()
         {
             string tableName = GetTableName();
-            string? keyColumn = GetKeyColumnName();            
+            string? keyColumn = GetKeyColumnName();
             string query = $"DELETE FROM* {tableName} WHERE {keyColumn} = @Id";
 
             return query;

@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace Pacagroup.Ecommerce.Infrastructure.Interface
+﻿namespace Pacagroup.Ecommerce.Application.Interface.Persistence
 {
     public interface IUnitOfWork:IDisposable
     {

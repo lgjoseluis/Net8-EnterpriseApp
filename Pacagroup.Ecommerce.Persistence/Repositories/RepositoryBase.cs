@@ -1,7 +1,6 @@
-﻿using Pacagroup.Ecommerce.Infrastructure.Data;
-using System.Data;
+﻿using System.Data;
 
-namespace Pacagroup.Ecommerce.Infrastructure.Repository
+namespace Pacagroup.Ecommerce.Persistence.Repositories
 {
     public abstract class RepositoryBase
     {

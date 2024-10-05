@@ -1,14 +1,7 @@
-﻿using Pacagroup.Ecommerce.Domain.Entity;
-using Pacagroup.Ecommerce.Infrastructure.Data;
-using Pacagroup.Ecommerce.Infrastructure.Interface;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
+using Pacagroup.Ecommerce.Application.Interface.Persistence;
 
-namespace Pacagroup.Ecommerce.Infrastructure.Repository
+namespace Pacagroup.Ecommerce.Persistence.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -17,7 +10,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
 
         public ICustomerRepository Customers { get; }
         public IUserRepository Users { get; }
-        
+
         public UnitOfWork(IDbConnection dbConnection, ICustomerRepository customerRepository, IUserRepository userRepository)
         {
             _dbConnection = dbConnection;
@@ -25,7 +18,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
             Users = userRepository;
 
             ((RepositoryBase)Customers).SetConnection(_dbConnection);
-            ((RepositoryBase)Users).SetConnection(_dbConnection);            
+            ((RepositoryBase)Users).SetConnection(_dbConnection);
         }
 
         public async Task BeginTransactionAsync()
@@ -68,7 +61,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Repository
             }
             _dbConnection.Dispose();
 
-            System.GC.SuppressFinalize(this);
+            GC.SuppressFinalize(this);
         }
     }
 }

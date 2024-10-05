@@ -1,26 +1,25 @@
 ﻿using AutoMapper;
-
 using Pacagroup.Ecommerce.Application.DTO;
-using Pacagroup.Ecommerce.Application.Interface;
+using Pacagroup.Ecommerce.Application.Interface.Persistence;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
 using Pacagroup.Ecommerce.Domain.Entity;
-using Pacagroup.Ecommerce.Domain.Interface;
 using Pacagroup.Ecommerce.Transversal.Common;
 
-namespace Pacagroup.Ecommerce.Application.Main
+namespace Pacagroup.Ecommerce.Application.UseCases.CustomersApp
 {
     public class CustomerApplication : ICustomerApplication
     {
         private readonly IMapper _mapper;
         private readonly IAppLogger<CustomerApplication> _logger;
-        private readonly ICustomerDomain _customerDomain;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CustomerApplication(ICustomerDomain customerDomain, IMapper mapper, IAppLogger<CustomerApplication> logger) 
-        { 
-            _customerDomain = customerDomain;
+        public CustomerApplication(IMapper mapper, IAppLogger<CustomerApplication> logger, IUnitOfWork unitOfWork)
+        {
             _mapper = mapper;
             _logger = logger;
+            _unitOfWork = unitOfWork;
         }
-        
+
         #region async methods
         public async Task<Response<bool>> InsertAsync(CustomerDto customerDto)
         {
@@ -30,7 +29,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             {
                 Customers customer = _mapper.Map<Customers>(customerDto);
 
-                response.Data = await _customerDomain.InsertAsync(customer);
+                response.Data = await _unitOfWork.Customers.InsertAsync(customer);
 
                 if (response.Data)
                 {
@@ -55,7 +54,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             {
                 Customers customer = _mapper.Map<Customers>(customerDto);
 
-                response.Data = await _customerDomain.UpdateAsync(customer);
+                response.Data = await _unitOfWork.Customers.UpdateAsync(customer);
 
                 if (response.Data)
                 {
@@ -79,7 +78,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                response.Data = await _customerDomain.DeleteAsync(customerId);
+                response.Data = await _unitOfWork.Customers.DeleteAsync(customerId);
 
                 if (response.Data)
                 {
@@ -102,7 +101,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                Customers? customer = await _customerDomain.GetAsync(customerId);
+                Customers? customer = await _unitOfWork.Customers.GetAsync(customerId);
 
                 response.Data = _mapper.Map<CustomerDto>(customer);
 
@@ -128,7 +127,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                IEnumerable<Customers> customers = await _customerDomain.GetAllAsync();
+                IEnumerable<Customers> customers = await _unitOfWork.Customers.GetAllAsync();
 
                 response.Data = _mapper.Map<IEnumerable<CustomerDto>>(customers);
 
