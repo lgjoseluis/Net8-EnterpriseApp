@@ -35,17 +35,14 @@ namespace Pacagroup.Ecommerce.Application.UseCases.UsersApp
                 {
                     response.IsSuccess = true;
                     response.Message = "Autenticación exitosa";
+                    _logger.LogInformation(response.Message);
                 }
             }
             catch (InvalidOperationException)
             {
                 response.IsSuccess = true;
                 response.Message = "Usuario no existe";
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e.Message);
-                response.Message = e.Message;
+                _logger.LogError(response.Message);
             }
 
             return response;

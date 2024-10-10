@@ -25,22 +25,14 @@ namespace Pacagroup.Ecommerce.Application.UseCases.CustomersApp
         {
             Response<bool> response = new Response<bool>();
 
-            try
-            {
-                Customers customer = _mapper.Map<Customers>(customerDto);
+            Customers customer = _mapper.Map<Customers>(customerDto);
 
-                response.Data = await _unitOfWork.Customers.InsertAsync(customer);
+            response.Data = await _unitOfWork.Customers.InsertAsync(customer);
 
-                if (response.Data)
-                {
-                    response.IsSuccess = true;
-                    response.Message = "Registro exitoso";
-                }
-            }
-            catch (Exception e)
+            if (response.Data)
             {
-                _logger.LogError(e.Message);
-                response.Message = e.Message;
+                response.IsSuccess = true;
+                response.Message = "Registro exitoso";
             }
 
             return response;
@@ -50,23 +42,15 @@ namespace Pacagroup.Ecommerce.Application.UseCases.CustomersApp
         {
             Response<bool> response = new Response<bool>();
 
-            try
-            {
-                Customers customer = _mapper.Map<Customers>(customerDto);
+            Customers customer = _mapper.Map<Customers>(customerDto);
 
-                response.Data = await _unitOfWork.Customers.UpdateAsync(customer);
+            response.Data = await _unitOfWork.Customers.UpdateAsync(customer);
 
-                if (response.Data)
-                {
-                    response.IsSuccess = true;
-                    response.Message = "Actualización exitosa";
-                    _logger.LogInformation($"Actualización exitosa. [{nameof(Customers)}]<<Id: {customer.CustomerId}>>");
-                }
-            }
-            catch (Exception e)
+            if (response.Data)
             {
-                _logger.LogError(e.Message);
-                response.Message = e.Message;
+                response.IsSuccess = true;
+                response.Message = "Actualización exitosa";
+                _logger.LogInformation($"Actualización exitosa. [{nameof(Customers)}]<<Id: {customer.CustomerId}>>");
             }
 
             return response;
@@ -76,21 +60,14 @@ namespace Pacagroup.Ecommerce.Application.UseCases.CustomersApp
         {
             Response<bool> response = new Response<bool>();
 
-            try
-            {
-                response.Data = await _unitOfWork.Customers.DeleteAsync(customerId);
+            response.Data = await _unitOfWork.Customers.DeleteAsync(customerId);
 
-                if (response.Data)
-                {
-                    response.IsSuccess = true;
-                    response.Message = "Eliminación exitosa";
-                }
-            }
-            catch (Exception e)
+            if (response.Data)
             {
-                _logger.LogError(e.Message);
-                response.Message = e.Message;
+                response.IsSuccess = true;
+                response.Message = "Eliminación exitosa";
             }
+
 
             return response;
         }
@@ -99,23 +76,15 @@ namespace Pacagroup.Ecommerce.Application.UseCases.CustomersApp
         {
             Response<CustomerDto> response = new Response<CustomerDto>();
 
-            try
-            {
-                Customers? customer = await _unitOfWork.Customers.GetAsync(customerId);
+            Customers? customer = await _unitOfWork.Customers.GetAsync(customerId);
 
-                response.Data = _mapper.Map<CustomerDto>(customer);
+            response.Data = _mapper.Map<CustomerDto>(customer);
 
-                if (response.Data != null)
-                {
-                    response.IsSuccess = true;
-                    response.Message = "Consulta exitosa";
-                    _logger.LogInformation($"Consulta exitosa. [{nameof(Customers)}]<<Id: {customerId}>>");
-                }
-            }
-            catch (Exception e)
+            if (response.Data != null)
             {
-                _logger.LogError(e.Message);
-                response.Message = e.Message;
+                response.IsSuccess = true;
+                response.Message = "Consulta exitosa";
+                _logger.LogInformation($"Consulta exitosa. [{nameof(Customers)}]<<Id: {customerId}>>");
             }
 
             return response;
@@ -125,22 +94,14 @@ namespace Pacagroup.Ecommerce.Application.UseCases.CustomersApp
         {
             Response<IEnumerable<CustomerDto>> response = new Response<IEnumerable<CustomerDto>>();
 
-            try
-            {
-                IEnumerable<Customers> customers = await _unitOfWork.Customers.GetAllAsync();
+            IEnumerable<Customers> customers = await _unitOfWork.Customers.GetAllAsync();
 
-                response.Data = _mapper.Map<IEnumerable<CustomerDto>>(customers);
+            response.Data = _mapper.Map<IEnumerable<CustomerDto>>(customers);
 
-                if (response.Data != null)
-                {
-                    response.IsSuccess = true;
-                    response.Message = "Consulta exitosa";
-                }
-            }
-            catch (Exception e)
+            if (response.Data != null)
             {
-                _logger.LogError(e.Message);
-                response.Message = e.Message;
+                response.IsSuccess = true;
+                response.Message = "Consulta exitosa";
             }
 
             return response;

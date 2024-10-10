@@ -7,6 +7,7 @@ using Pacagroup.Ecommerce.Service.WebApi.Modules.Mapper;
 using Pacagroup.Ecommerce.Service.WebApi.Modules.Swagger;
 using Pacagroup.Ecommerce.Service.WebApi.Modules.Validator;
 using WatchDog;
+using Pacagroup.Ecommerce.Service.WebApi.Modules.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,5 +57,7 @@ app.UseWatchDog(conf => {
     conf.WatchPageUsername = builder.Configuration.GetSection("WatchDog:WatchPageUsername").Value;
     conf.WatchPagePassword = builder.Configuration.GetSection("WatchDog:WatchPagePassword").Value;
 });
+
+app.AddMiddleware();
 
 app.Run();
