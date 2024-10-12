@@ -14,7 +14,7 @@ public class UserLoginDtoValidator : AbstractValidator<UserLoginDto>
 
         RuleFor(c => c.UserName)
             .NotEmpty().WithMessage("Nombre de usuario no permite valores vacíos")
-            .NotNull().WithMessage("Nombre de lusuario es requerido");
+            .NotNull().WithMessage("Nombre del usuario es requerido");
     }
 }
 

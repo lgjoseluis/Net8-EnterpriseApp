@@ -61,3 +61,5 @@ app.UseWatchDog(conf => {
 app.AddMiddleware();
 
 app.Run();
+
+public partial class Program { };

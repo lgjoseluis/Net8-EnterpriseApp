@@ -23,7 +23,16 @@ namespace Pacagroup.Ecommerce.Application.UseCases.UsersApp
 
         public Response<UserDto> Authenticate(UserLoginDto userLoginDto)
         {
+            ArgumentNullException.ThrowIfNull(nameof(userLoginDto));
+
             Response<UserDto> response = new Response<UserDto>();
+
+            if (string.IsNullOrEmpty(userLoginDto.UserName) || string.IsNullOrEmpty(userLoginDto.Password))
+            {
+                response.Message = "Datos de usuario inválidos";
+
+                return response;
+            }
 
             try
             {
